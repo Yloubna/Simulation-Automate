@@ -7,7 +7,7 @@ int main() {
 
 // Déclarations :
 
-int w[4]={1,0,0}; // la chaine d'entrée
+//int w[4]={1,0,0}; // la chaine d'entrée
 int i;
 int Final=1; // l'état final
 int Aut[2][2]={
@@ -22,47 +22,46 @@ int res = 8; // 8 vaut False
 /* --- read w from file ----- */
 
 char *p; // to split
-char *array[3];
+char *array[5];
 
-char newC[5]; // to convert
-char c;
+int newC[3]; // to convert
 
+char c; // to read
 FILE *file;
 file = fopen("test.txt", "r");
+
 if (file) {
+    printf("le fichier contient : ");
     while ((c = getc(file)) != EOF){
-    // convert int c  into  string newC
-    snprintf(newC ,5, "%c", c);
+    putchar(c);
+
 }
-  fclose(file);
+
 }
+fclose(file);
 // Split string into tokens
+
+for (i = 0; i < 5; i++){
+  // Split string into tokens
+  p = strtok (&c, "-");
+  array[i] = p;
+}
 
 for (i = 0; i < 3; i++)
 {
-    p = strtok (&c, "/");
-    array[i] = p;
+    // convert string c  into  int newC
+    newC[i] = atoi(array[i]);
 
+    // display tokens
+    printf("%d\n", newC[i]);
 }
 
-// display tokens
-
-for (i = 0; i < 3; i++){
-    printf("%s\n", array[i]);
-}
-
-/* ----------------------------------- */
-// Dialogue :
-printf(" you entered : ");
-for ( i = 0; i < 3; i++) {
-  printf("%d ", w[i]);
-}
 
 
 // simulation de l'automate
 
 for ( i = 0; i < 3; i++) {
-  next_state = Aut[w[i]][state];
+  next_state = Aut[newC[i]][state];
   state = next_state;
 }
 
@@ -72,4 +71,27 @@ if (state == Final) {
 
 printf("\n (9 is True, 8 is False) your word is  %d \n",res);
 
+
+/* ----------------------------------- */
+// // Dialogue :
+// printf(" ------ sans lecture de fichier ----- \n you entered : ");
+// for ( i = 0; i < 3; i++) {
+//   printf("%d ", w[i]);
+// }
+//
+//
+// // simulation de l'automate
+//
+// for ( i = 0; i < 3; i++) {
+//   next_state = Aut[w[i]][state];
+//   state = next_state;
+// }
+//
+// if (state == Final) {
+//   res = 9; // 9 vaut True
+// }
+//
+// printf("\n (9 is True, 8 is False) your word is  %d \n",res);
+//
+// }
 }
